@@ -1,0 +1,19 @@
+*** Settings ***
+Library           SeleniumLibrary
+Library           ExcelLibrary
+
+*** Keywords ***
+navigateToUrl
+    Open Browser    https://www.leo.org    chrome
+
+PageObjects
+    Element Text Should Be    xpath://h1[@class='f0 p-v-medium']    LEO’s dictionaries
+    Page Should Contain Element    //i[@title='Login']
+
+loginToLeo
+    Click Element    xpath://i[@title='Login']
+    Page Should Contain Element    xpath://button[@type='submit' and contains(text(), 'Login')]
+    Page Should Contain Element    //a[@class='fw-b c_link' and contains(text(), 'Don’t have an account? - Register now.')]
+    Wait Until Keyword Succeeds    2    1    Clear Element Text    xpath://input[@name='login' and @autocomplete='username']
+    Wait Until Keyword Succeeds    2    1    Input Text    xpath://input[@name='login' and @autocomplete='username']    saturnnine
+    Wait Until Keyword Succeeds    2    1    Input Text    xpath://input[@name='password' and @autocomplete='current-password']    saturnnine

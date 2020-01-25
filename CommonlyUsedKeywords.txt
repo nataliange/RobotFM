@@ -1,0 +1,18 @@
+*** Settings ***
+Library           SeleniumLibrary
+
+*** Variables ***
+${username}       ${EMPTY}
+${password}       ${EMPTY}
+
+*** Keywords ***
+Login to user application
+    Set Global Variable    ${username}
+    Set Global Variable    ${password}
+    Open Excel Document    C:/Robot_projects/Demo/Flight.xlsx    doc_id=Flight.xlsx
+    ${username}    Read Excel Cell    2    2
+    ${password}    Read Excel Cell    2    3
+    Input Text    xpath://input[@type='email']    ${username}
+    Input Text    xpath://input[@type='password']    ${password}
+    Click Element    xpath://div[@class='btn']
+    Sleep    5
