@@ -26,5 +26,7 @@ DBTestAutomation
     @{password}    Convert To List    @{queryResults}
     Open Browser    https://www.leo.org    chrome
     Maximize Browser Window
-    Wait Until Keyword Succeeds    2    1    Input Text    @{username}
-    Wait Until Keyword Succeeds    2    1    Input Text    @{password}
+    Click Element    xpath://i[@title='Login']
+    Wait Until Keyword Succeeds    2    1    Input Text    xpath://input[@name='login' and @autocomplete='username']    @{username}
+    Wait Until Keyword Succeeds    2    1    Input Text    xpath://input[@name='password' and @autocomplete='current-password']    @{password}
+    [Teardown]    close Browser
