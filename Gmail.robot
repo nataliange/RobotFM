@@ -16,7 +16,7 @@ TC_01_Login
 
 DBTestAutomation2
     [Documentation]    Convert To List: converts tuple to a String
-    Connect To Database    pyodbc    TESTDB    TESTSQLUSERNAME    test    localhost    1433
+    Connect To Database    pyodbc    NATADB    NATASQL    test    localhost    1433
     Table Must Exist    Email
     @{queryResults}    Description    select * from Employees
     Log Many    @{queryResults}
