@@ -1,5 +1,6 @@
 *** Settings ***
 Library           SeleniumLibrary
+Library           ExcelLibrary
 
 *** Variables ***
 ${username}       ${EMPTY}
@@ -9,10 +10,14 @@ ${password}       ${EMPTY}
 Login to user application
     Set Global Variable    ${username}
     Set Global Variable    ${password}
-    Open Excel Document    C:/Robot_projects/Demo/Flight.xlsx    doc_id=Flight.xlsx
+    Open Excel Document    C:/Users/nage/Robot clones/RobotFM/Leo.xlsx    doc_id=Leo.xlsx
     ${username}    Read Excel Cell    2    2
     ${password}    Read Excel Cell    2    3
-    Input Text    xpath://input[@type='email']    ${username}
-    Input Text    xpath://input[@type='password']    ${password}
-    Click Element    xpath://div[@class='btn']
+    Click Element    xpath://i[@title='Login']
+    Page Should Contain Element    xpath://button[@type='submit' and contains(text(), 'Login')]
+    Page Should Contain Element    //a[@class='fw-b c_link' and contains(text(), 'Don’t have an account? - Register now.')]
+    Wait Until Keyword Succeeds    2    1    Clear Element Text    xpath://input[@name='login' and @autocomplete='username']
+    Wait Until Keyword Succeeds    2    1    Input Text    xpath://input[@name='login' and @autocomplete='username']    ${username}
+    Wait Until Keyword Succeeds    2    1    Input Text    xpath://input[@name='password' and @autocomplete='current-password']    ${password}
+    Click Element    xpath://button[@type='submit' and contains(text(), 'Login')]
     Sleep    5

@@ -11,6 +11,3 @@ TC_01
 
 TC_02
     Get Current Date
-
-TC_03
-    Log To Console    Hello world

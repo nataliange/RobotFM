@@ -1,5 +1,6 @@
 *** Settings ***
 Library           SeleniumLibrary
+Library           ExcelLibrary
 
 *** Variables ***
 @{ExcelRows}
@@ -10,7 +11,7 @@ ${ColCount}       ${EMPTY}
 
 *** Test Cases ***
 ReadFromExcel
-    Open Excel Document    D:/Robot_framework/Contacts_list.xlsx    doc_id=Contacts_list.xlsx
+    Open Excel Document    C:/Users/nage/Robot clones/RobotFM/Leo.xlsx    doc_id=Leo.xlsx
     @{ExcelRows}    Read Excel Row    2
     @{ExcelColumns}    Read Excel Column    1
     Comment    FOR    ${ExcelRow}    IN    @{ExcelRows}
@@ -26,15 +27,8 @@ ReadFromExcel
     Comment    LOG    ${ExcelRow}
 
 WriteToExcel
-    Comment    Create Excel Workbook    My_workbook
-    Comment    Save Excel    My_createc_excel.xls
-    Comment    Open Excel    C:/Robot_projects/Demo/My_createc_excel.xls
-    Comment    Put String To Cell    My_workbook    0    1    Natalia
-    Comment    Save Excel    My_createc_excel_2.xls
-    Comment    Put Number To Cell    My_workbook    0    1    123
-    Comment    Save Excel    My_createc_excel_2.xls
     Create Excel Document    My_workbook
-    Save Excel Document    D:/Robot_framework/My_workbook.xlsx
-    Open Excel Document    D:/Robot_framework/My_workbook.xlsx    doc_id=My_workbook.xlsx
-    Write Excel Cell    1    1    Natalia
-    Save Excel Document    D:/Robot_framework/My_workbook.xlsx
+    Save Excel Document    C:/Users/nage/Robot clones/RobotFM/My_workbook.xlsx
+    Open Excel Document    C:/Users/nage/Robot clones/RobotFM/My_workbook.xlsx    doc_id=My_workbook.xlsx
+    Write Excel Cell    1    1    Tiger
+    Save Excel Document    C:/Users/nage/Robot clones/RobotFM/My_workbook.xlsx
