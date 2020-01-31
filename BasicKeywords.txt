@@ -8,9 +8,9 @@ navigateToUrl
 
 PageObjects
     Element Text Should Be    xpath://h1[@class='f0 p-v-medium']    LEO’s dictionaries
-    Page Should Contain Element    //i[@title='Login']
+    Page Should Contain Element    xpath://i[@title='Login']
 
-loginToLeo
+simpleLoginToLeo
     Click Element    xpath://i[@title='Login']
     Page Should Contain Element    xpath://button[@type='submit' and contains(text(), 'Login')]
     Page Should Contain Element    //a[@class='fw-b c_link' and contains(text(), 'Don’t have an account? - Register now.')]

@@ -5,6 +5,7 @@ Library           ExcelLibrary
 *** Variables ***
 ${username}       ${EMPTY}
 ${password}       ${EMPTY}
+${wordToTranslate}    ${EMPTY}
 
 *** Keywords ***
 Login to user application
@@ -21,3 +22,22 @@ Login to user application
     Wait Until Keyword Succeeds    2    1    Input Text    xpath://input[@name='password' and @autocomplete='current-password']    ${password}
     Click Element    xpath://button[@type='submit' and contains(text(), 'Login')]
     Sleep    5
+    Page Should Contain Element    xpath://i[@role='img ' and @title='My LEO']
+    Click Element    xpath://i[@role='img ' and @title='My LEO']
+    Page Should Contain Element    xpath://span[@id='usersNickName']
+    Sleep    2
+
+wordSearch
+    Wait Until Keyword Succeeds    2    1    Click element    xpath://a[@class='ib' and contains(text(), 'Dictionary')]
+    Sleep    3
+    Open Excel Document    C:/Users/nage/Robot clones/RobotFM/Leo.xlsx    doc_id=Leo1.xlsx
+    ${wordToTranslate}    Read Excel Cell    5    2
+    Wait Until Keyword Succeeds    2    1    Clear Element Text    xpath://input[@type='search']
+    Wait Until Keyword Succeeds    2    1    Input Text    xpath://input[@type='search']    ${wordToTranslate}
+    Sleep    2
+    Click Element    xpath://i[@role='img ' and @title='Start search']
+    Sleep    2
+    Wait Until Keyword Succeeds    2    1    Click element    xpath://span[@data-dz-ui="menu" and @data-dz-role="searchbar-switchdict"]
+    Sleep    2
+    Wait Until Keyword Succeeds    2    1    Click element    xpath://li[@class="menu-item p-h-medium" and @data-dz-lp="frde"]
+    Click Element    xpath://i[@role='img ' and @title="Suche starten"]

@@ -1,10 +1,10 @@
 *** Settings ***
-Library           SeleniumLibrary
 Library           ExcelLibrary
 Resource          BasicKeywords.txt
 Library           DatabaseLibrary
 Library           Collections
 Resource          CommonlyUsedKeywords.txt
+Library           SeleniumLibrary
 
 *** Test Cases ***
 TC_01_Login_with_XLSX
@@ -12,8 +12,15 @@ TC_01_Login_with_XLSX
     Location Should Be    https://www.leo.org/german-english
     PageObjects
     Maximize Browser Window
-    Comment    loginToLeo
+    Comment    simpleLoginToLeo
     Login to user application
+    Sleep    3
+    wordSearch
+    Wait Until Keyword Succeeds    2    1    Click element    xpath://a[@class='ib' and contains(text(), 'Forum')]
+    Wait Until Keyword Succeeds    2    1    Click element    xpath://a[@class='ib' and contains(text(), 'Trainer')]
+    Wait Until Keyword Succeeds    2    1    Click element    xpath://button[@type="button" and contains(text(), 'Weiter')]
+    Sleep    2
+    Wait Until Keyword Succeeds    2    1    Click element    xpath://a[@class='ib' and contains(text(), 'Kurse')]
     [Teardown]
 
 Login_with_DB
@@ -36,5 +43,4 @@ Login_with_DB
     Click Element    xpath://i[@title='Login']
     Wait Until Keyword Succeeds    2    1    Input Text    xpath://input[@name='login' and @autocomplete='username']    @{username}
     Wait Until Keyword Succeeds    2    1    Input Text    xpath://input[@name='password' and @autocomplete='current-password']    @{password}
-    close br
     [Teardown]    close Browser
