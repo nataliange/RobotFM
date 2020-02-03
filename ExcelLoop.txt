@@ -1,0 +1,27 @@
+*** Settings ***
+Library           ExcelLibrary
+
+*** Variables ***
+${Sheetname}      ${EMPTY}
+${TestCaseName}    ${EMPTY}
+${TestCaseColumn}    ${EMPTY}
+${sData}          ${EMPTY}
+${stestcaseNo}    ${EMPTY}
+${sColumnname}    ${EMPTY}
+${ssheetname}     ${EMPTY}
+${Ssearcheddata}    ${EMPTY}
+${columncount}    ${EMPTY}
+
+*** Keywords ***
+Load Excel Data
+    [Arguments]    ${Sheetname}    ${TestCaseName}    ${TestCaseColumn}
+    Open Excel Document    C:/Users/nage/Robot clones/RobotFM/TestCases.xlsx    doc_id=estCases.xlsx
+    ${sData}    Get data from Excel with given column    ${Sheetname}    ${TestCaseName}    ${TestCaseColumn}
+    Log    ${sData}
+    [Return]    ${sData}
+
+Get data from Excel with given column
+    [Arguments]    ${ssheetname}    ${stestcaseNo}    ${sColumnname}
+    log    ${sColumnname}
+    ${columncount}    Get Count
+    [Return]    ${Ssearcheddata}
