@@ -1,0 +1,5 @@
+robot -t TC_01_Login_with_XLSX
+robot -t Login_with_DB
+robot -t LoginFailed
+robot -t RestAPI
+robot -t Excel

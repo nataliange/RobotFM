@@ -6,6 +6,20 @@ Library           Collections
 Resource          CommonlyUsedKeywords.txt
 Library           SeleniumLibrary
 Library           REST
+Library           BuiltIn
+Library           DateTime
+Library           Dialogs
+Library           OperatingSystem
+Library           Process
+Library           Screenshot
+Library           String
+Library           Telnet
+Library           XML
+
+*** Variables ***
+@{pages}
+${Response}       10 20 50 100 250
+${page}           ${EMPTY}
 
 *** Test Cases ***
 TC_01_Login_with_XLSX
@@ -74,12 +88,18 @@ Excel
     ...    Write postcodes to the new creates file Postcode_ACTUAL.xlsx
     ...
     ...    Compare lists in Postcode_ACTUAL.xlsx and Postcode_EXPECTED.xlsx
+    Set Selenium Speed    0.5
     Open Browser    https://www.suche-postleitzahl.org/berlin.13f    chrome
     Maximize Browser Window
     Sleep    2
     Click Element    xpath://option[@value='10']
     Sleep    2
-    Click Element    xpath://option[@value='P']
+    List Selection Should Be    xpath://select[@name='data-table_length']    10
+    Sleep    2
+    Select From List By Index    xpath://select[@name='data-table_length']    2
+    List Selection Should Be    xpath://select[@name='data-table_length']    50
+    Sleep    2
+    BuiltIn.Wait Until Keyword Succeeds    2    1    Click Element    xpath://option[@value='P']
     ${postcode1}    Get Text    xpath://span[@data-plzexpand="Prenzlauer Berg" and contains(text(), '10119-10439')]
     Log    ${postcode1}
     Should Be Equal As Strings    ${postcode1}    10119-10439
@@ -87,7 +107,7 @@ Excel
     Log    ${postcode2}
     Should Be Equal As Strings    ${postcode2}    10439-13189
     Comment    HERE I DIDN'T FILL THE TEXT: contains(text(), '')
-    ${postcode3}    Get Text    //span[@data-plzexpand="Plänterwald" and contains(text(), '')]
+    ${postcode3}    Get Text    xpath://span[@data-plzexpand="Plänterwald" and contains(text(), '')]
     Log    ${postcode3}
     Should Be Equal As Strings    ${postcode3}    12435-12437
     Create Excel Document    doc_id=C:/Users/nage/Robot clones/RobotFM/Postcode_ACTUAL.xlsx
@@ -100,3 +120,15 @@ Excel
     Lists Should Be Equal    ${col_data}    ${cd}
     Close All Excel Documents
     Close Browser
+
+Loop
+    Open Browser    https://www.suche-postleitzahl.org/berlin.13f    chrome
+    Maximize Browser Window
+    @{pages}    Get List Items    xpath://select[@name='data-table_length']
+    FOR    ${page}    IN    @{pages}
+    Log    ${page}
+    Should Contain    ${Response}    ${page}
+    List Selection Should Be    xpath://select[@name='data-table_length']
+    Sleep    2
+    Select From List By Index    xpath://select[@name='data-table_length']
+    Sleep    2

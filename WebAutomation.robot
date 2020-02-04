@@ -11,6 +11,7 @@ ${username}       ${EMPTY}
 ${password}       ${EMPTY}
 ${actualWrongCredentials}    ${EMPTY}
 ${expectedWrongCredentials}    ${EMPTY}
+${ResponseTwo}    Toronto Chicago New York London
 
 *** Test Cases ***
 OpenBrowserChrome
@@ -145,13 +146,13 @@ Checkbox
 ListElementDemo
     SeleniumLibrary.Open Browser    https://ngendigital.com/practice    chrome
     SeleniumLibrary.Maximize Browser Window
-    Select Frame    id=iframe-015
+    Select Frame    id=iframe-014
     Sleep    2
     Page Should Contain List    css:#FromCity
     Sleep    2
     @{Cities}    Get List Items    css:#FromCity
     FOR    ${City}    IN    @{Cities}
-    LOG    ${City}
+        LOG    ${City}
     Sleep    4
     List Selection Should Be    css:#FromCity    Toronto
     Sleep    2
@@ -233,3 +234,12 @@ DZ_2_LoginInvalCredent
     Page Should Contain Element    xpath://*[contains(text(), "Invalid username/password")]    Text not found    INFO
     Sleep    2
     [Teardown]    Close browser
+
+List2
+    SeleniumLibrary.Open Browser    https://ngendigital.com/practice    chrome
+    SeleniumLibrary.Maximize Browser Window
+    Select Frame    id=iframe-014
+    Sleep    2
+    @{Cities}    Get List Items    xpath://select[@id='FromCity']
+    FOR    ${City}    IN    @{Cities}
+        Should Contain    ${ResponseTwo}    ${City}

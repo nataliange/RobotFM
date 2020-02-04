@@ -24,7 +24,7 @@ Login to user application
     Sleep    5
     Page Should Contain Element    xpath://i[@role='img ' and @title='My LEO']
     Click Element    xpath://i[@role='img ' and @title='My LEO']
-    Page Should Contain Element    xpath://span[@id='usersNickName']
+    Wait Until Page Contains Element    xpath://span[@id='usersNickName']    2    Page doesn't contain an element!
     Sleep    2
     Close All Excel Documents
 
