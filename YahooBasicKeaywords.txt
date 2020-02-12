@@ -1,0 +1,55 @@
+*** Settings ***
+Library           SeleniumLibrary
+
+*** Keywords ***
+loginYahoo
+    Open Browser    https://mail.yahoo.com    chrome
+    Maximize Browser Window
+    Wait Until Keyword Succeeds    2    1    Clear Element Text    xpath://input[@id="login-username"]
+    Wait Until Keyword Succeeds    2    1    Input Text    xpath://input[@id="login-username"]    @@@@@@@
+    Wait Until Keyword Succeeds    2    1    Click element    xpath://input[@value="Next"]
+    Wait Until Keyword Succeeds    2    1    Clear Element Text    xpath://input[@type="password"]
+    Wait Until Keyword Succeeds    2    1    Input Text    xpath://input[@type="password"]    XXXXXXXXXXXX
+    Wait Until Keyword Succeeds    2    1    Click element    xpath://button[@type="submit"]
+    Page Should Contain Element    xpath://span[@data-test-folder-name="Inbox" and contains(text(), 'Posteingang')]
+
+sendEmail
+    Wait Until Keyword Succeeds    2    1    Click element    xpath://a[@aria-label="Verfassen"]
+    Wait Until Keyword Succeeds    2    1    Clear Element Text    xpath://div[@role="textbox"]
+    sleep    2
+    Wait Until Keyword Succeeds    2    1    Input Text    xpath://div[@role="textbox"]    TEXT FOR MAIL IS TYPED HERE. TEXT FOR MAIL IS TYPED HERE. \ TEXT FOR MAIL IS TYPED HERE. \ TEXT FOR MAIL IS TYPED HERE. \ \
+    Wait Until Keyword Succeeds    2    1    Clear Element Text    xpath://*[@id="message-to-field"]
+    Wait Until Keyword Succeeds    2    1    Input Text    xpath://*[@id="message-to-field"]    lee.stivenson@yahoo.com
+    Wait Until Keyword Succeeds    2    1    Clear Element Text    xpath://*[@id="message-to-field"]
+    Wait Until Keyword Succeeds    2    1    Input Text    xpath://input[@data-test-id="compose-subject"]    Send a mail
+    Wait Until Keyword Succeeds    2    1    Click element    xpath://button[@title="E-Mail senden"]
+
+checkGesendetFolder
+    Wait Until Keyword Succeeds    2    1    Click element    xpath://span[@data-test-folder-name="Sent" and contains(text(), 'Gesendet')]
+    Wait Until Page Contains Element    xpath://span[@data-test-id="message-subject" and @title="Send a mail"]
+
+CheckInboxFolder
+    Wait Until Keyword Succeeds    2    1    Click element    xpath://span[@data-test-folder-name="Inbox"]
+    Wait Until Keyword Succeeds    2    1    Click element    xpath://div[@data-test-id="mail-reader-toolbar"]
+    Wait Until Page Contains Element    xpath://span[@data-test-id="displayed-count" and contains(text(), '1')]
+    Wait Until Keyword Succeeds    2    1    Click element    xpath://span[@data-test-id="message-subject" and @title="Send a mail"]
+    Wait Until Keyword Succeeds    2    1    Click element    xpath://span[@data-test-folder-name="Inbox"]
+
+DeleteEmailInInbox
+    Mouse Over    xpath://span[@data-test-id="message-subject" and @title="Send a mail"]
+    sleep    2
+    Wait Until Keyword Succeeds    2    1    Click element    xpath://button[@title="Diese Nachricht löschen"]
+
+deleteAllMailsInGesendetFolder
+    Wait Until Keyword Succeeds    2    1    Click element    xpath://span[@data-test-folder-name="Sent" and contains(text(), 'Gesendet')]
+    Wait Until Keyword Succeeds    2    1    Click element    xpath://span[@class="D_F"]
+    Wait Until Keyword Succeeds    2    1    Click element    xpath://span[contains(text(), 'Löschen')]
+    Wait Until Page Contains Element    xpath://span[contains(text(), 'Hier gibt es leider nichts zu sehen.')]
+
+DeleteAllMailsInTrash
+    Wait Until Keyword Succeeds    2    1    Click element    xpath://span[contains(text(), 'Papierkorb')]
+    Wait Until Page Contains Element    xpath://span[contains(text(), 'Sortieren')]
+    Wait Until Keyword Succeeds    2    1    Click element    xpath://span[@class="D_F"]
+    Wait Until Keyword Succeeds    2    1    Click element    xpath://span[contains(text(), 'Löschen')]
+    Wait Until Page Contains Element    xpath://div[@data-test-id="title" and contains(text(), 'Nachricht löschen')]
+    Wait Until Keyword Succeeds    2    1    Click element    xpath://button[contains(text(), 'OK')]

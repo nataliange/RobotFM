@@ -12,6 +12,13 @@ ${password}       ${EMPTY}
 ${actualWrongCredentials}    ${EMPTY}
 ${expectedWrongCredentials}    ${EMPTY}
 ${ResponseTwo}    Toronto Chicago New York London
+${scalarVar1}     2
+${scalarVar2}     2
+@{listVar1}       month    January
+@{listVar2}       month    February
+&{dictVar1}       author=Liu Cixin    title=The Three-Body Problem
+&{dictVar2}       author=Lemm    title=The Star Diaries
+&{dictVar3}       author=Lemm    title=The Star Diaries
 
 *** Test Cases ***
 OpenBrowserChrome
@@ -152,7 +159,7 @@ ListElementDemo
     Sleep    2
     @{Cities}    Get List Items    css:#FromCity
     FOR    ${City}    IN    @{Cities}
-        LOG    ${City}
+    LOG    ${City}
     Sleep    4
     List Selection Should Be    css:#FromCity    Toronto
     Sleep    2
@@ -225,16 +232,6 @@ Flight Application
     Close Browser
     [Teardown]    Close Browser
 
-DZ_2_LoginInvalCredent
-    SeleniumLibrary.Open Browser    https://ngendigital.com/demo-application    chrome
-    SeleniumLibrary.Maximize Browser Window
-    Select Frame    id=iframe-015
-    Sleep    2
-    Login to user application    support@ngendidgital.com    abc12345
-    Page Should Contain Element    xpath://*[contains(text(), "Invalid username/password")]    Text not found    INFO
-    Sleep    2
-    [Teardown]    Close browser
-
 List2
     SeleniumLibrary.Open Browser    https://ngendigital.com/practice    chrome
     SeleniumLibrary.Maximize Browser Window
@@ -242,4 +239,35 @@ List2
     Sleep    2
     @{Cities}    Get List Items    xpath://select[@id='FromCity']
     FOR    ${City}    IN    @{Cities}
-        Should Contain    ${ResponseTwo}    ${City}
+    Should Contain    ${ResponseTwo}    ${City}
+
+Variables
+    [Documentation]    *Variables*
+    ...    _scalar variables example_
+    ...
+    ...    _list variable example_:
+    ...    lists are converted to Strings before comparing
+    ...
+    ...    Link: https://www.leo.org/german-english
+    [Tags]    TEST
+    [Setup]    SetUpExample
+    Should Be Equal As Numbers    2    2
+    Should Be Equal As Numbers    ${scalarVar1}    ${scalarVar2}
+    Should Be Equal As Strings    @{listVar1}[0]    @{listVar2}[0]
+    Should Not Be Equal As Strings    &{dictVar1}[author]    &{dictVar2}[author]
+    Should Be Equal As Strings    &{dictVar2}[author][title1]    &{dictVar3}[author][title1]
+    [Teardown]    TearDownExample
+
+TemplatesAndTimeouts
+    [Template]    Should Be Equal As Integers
+    [Timeout]    1 minute 10 seconds    # testing timeout
+    1    1
+    5    5
+    7    7
+
+*** Keywords ***
+SetUpExample
+    Log To Console    Logging for set up
+
+TearDownExample
+    Log To Console    logging for tear down

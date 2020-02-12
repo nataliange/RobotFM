@@ -43,3 +43,19 @@ wordSearch
     Wait Until Keyword Succeeds    2    1    Click element    xpath://li[@class="menu-item p-h-medium" and @data-dz-lp="frde"]
     Click Element    xpath://i[@role='img ' and @title="Suche starten"]
     Close All Excel Documents
+
+wordSearchMobView
+    Wait Until Keyword Succeeds    2    1    Click element    xpath://a[@class='ib' and contains(text(), 'Dictionary')]
+    Sleep    3
+    Open Excel Document    C:/Users/nage/Robot clones/RobotFM/Leo.xlsx    doc_id=Leo1.xlsx
+    ${wordToTranslate}    Read Excel Cell    5    2
+    Wait Until Keyword Succeeds    2    1    Clear Element Text    xpath://input[@type='search']
+    Wait Until Keyword Succeeds    2    1    Input Text    xpath://input[@type='search']    ${wordToTranslate}
+    Sleep    2
+    Click Element    xpath://i[@role='img ' and @title='Start search']
+    Sleep    2
+    Wait Until Keyword Succeeds    2    1    Click element    xpath://a[@title="French ⇔ German" and @href="/französisch-deutsch/"]
+    Sleep    2
+    Comment    Wait Until Keyword Succeeds    2    1    Click element    xpath://li[@class="menu-item p-h-medium" and @data-dz-lp="frde"]
+    Click Element    xpath://i[@role='img ' and @title="Suche starten"]
+    Close All Excel Documents
