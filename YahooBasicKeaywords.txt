@@ -6,10 +6,10 @@ loginYahoo
     Open Browser    https://mail.yahoo.com    chrome
     Maximize Browser Window
     Wait Until Keyword Succeeds    2    1    Clear Element Text    xpath://input[@id="login-username"]
-    Wait Until Keyword Succeeds    2    1    Input Text    xpath://input[@id="login-username"]    @@@@@@@
+    Wait Until Keyword Succeeds    2    1    Input Text    xpath://input[@id="login-username"]    lee.stivenson@yahoo.com
     Wait Until Keyword Succeeds    2    1    Click element    xpath://input[@value="Next"]
     Wait Until Keyword Succeeds    2    1    Clear Element Text    xpath://input[@type="password"]
-    Wait Until Keyword Succeeds    2    1    Input Text    xpath://input[@type="password"]    XXXXXXXXXXXX
+    Wait Until Keyword Succeeds    2    1    Input Text    xpath://input[@type="password"]    Dictionary1
     Wait Until Keyword Succeeds    2    1    Click element    xpath://button[@type="submit"]
     Page Should Contain Element    xpath://span[@data-test-folder-name="Inbox" and contains(text(), 'Posteingang')]
 
@@ -44,7 +44,7 @@ deleteAllMailsInGesendetFolder
     Wait Until Keyword Succeeds    2    1    Click element    xpath://span[@data-test-folder-name="Sent" and contains(text(), 'Gesendet')]
     Wait Until Keyword Succeeds    2    1    Click element    xpath://span[@class="D_F"]
     Wait Until Keyword Succeeds    2    1    Click element    xpath://span[contains(text(), 'Löschen')]
-    Wait Until Page Contains Element    xpath://span[contains(text(), 'Hier gibt es leider nichts zu sehen.')]
+    Comment    Wait Until Page Contains Element    xpath://span[contains(text(), 'Hier gibt es leider nichts zu sehen.')]
 
 DeleteAllMailsInTrash
     Wait Until Keyword Succeeds    2    1    Click element    xpath://span[contains(text(), 'Papierkorb')]
